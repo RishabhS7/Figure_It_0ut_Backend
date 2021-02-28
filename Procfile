@@ -1,1 +1,1 @@
-web:npm run runHeroku
+web:npm start
