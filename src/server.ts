@@ -33,10 +33,13 @@ app.use(
 ); //secret is used to encrypt..
 
 //connetciong mongo
-mongoose.connect("mongodb://localhost/formSubmissions", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  process.env.MongoDB_URI || "mongodb://localhost/formSubmissions",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 mongoose.connection.on("connected", () => {
   console.log("Mongoose is connected..");
