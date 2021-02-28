@@ -22,7 +22,7 @@ app.use(expressSession({
     cookie: { secure: false },
 })); //secret is used to encrypt..
 //connetciong mongo
-mongoose.connect("mongodb://localhost/formSubmissions", {
+mongoose.connect(process.env.MongoDB_URI || "mongodb://localhost/formSubmissions", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });

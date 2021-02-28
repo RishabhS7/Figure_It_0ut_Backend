@@ -3,17 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const router = express.Router();
 const Form = require("./Form");
-router.get('/', (req, res) => {
-    res.send("hello");
+router.get("/", (req, res) => {
+    res.send("Figure it out backend");
 });
-router.get('/login/name', (req, res) => {
+router.get("/login/name", (req, res) => {
     Form.find({})
         .then((data) => {
-        console.log('data:', data);
+        console.log("data:", data);
         res.json(data);
     })
         .catch((error) => {
-        console.log('error:');
+        console.log("error:");
     });
 });
 // interface Response{
@@ -21,20 +21,20 @@ router.get('/login/name', (req, res) => {
 //     json: any;
 //     status?:number;
 // }
-router.post('/api/register', (req, res) => {
-    console.log('body', req.body);
+router.post("/api/register", (req, res) => {
+    console.log("body", req.body);
     const data = req.body;
     const form = new Form(data);
     Form.findOne({ email: req.body.email }, function (err, user) {
         if (user) {
             return res.status(500).json({
                 success: false,
-                msg: "User already exists"
+                msg: "User already exists",
             });
         }
         else {
             // if(req.session){
-            // req.session.form = form._id; 
+            // req.session.form = form._id;
             // }
             form.password = form.generateHash(data.password);
             form.save((error) => {
@@ -44,13 +44,13 @@ router.post('/api/register', (req, res) => {
                 }
                 return res.status(200).send({
                     success: true,
-                    msg: "recieved a data"
+                    msg: "recieved a data",
                 });
             });
         }
     });
 });
-router.post('/api/login', function (req, res) {
+router.post("/api/login", function (req, res) {
     const data = req.body;
     const form = new Form(data);
     let email = req.body.email;
@@ -65,13 +65,13 @@ router.post('/api/login', function (req, res) {
         if (!user) {
             return res.status(404).send({
                 success: false,
-                message: 'user not matched'
+                message: "user not matched",
             });
         }
         if (!user.validPassword(password)) {
             return res.status(404).send({
                 success: false,
-                message: 'password not matched'
+                message: "password not matched",
             });
         }
         console.log("user found");
@@ -79,7 +79,7 @@ router.post('/api/login', function (req, res) {
         return res.status(200).send({
             id: user.id,
             success: true,
-            message: 'valid sign in'
+            message: "valid sign in",
         });
     });
 });
@@ -89,39 +89,39 @@ router.post('/api/login', function (req, res) {
 // //     }
 // //     return res.status(200).send("Welcome to dashboard");
 // // })
-router.get('/api/logout', function (req, res) {
-    req.session.destroy(err => {
+router.get("/api/logout", function (req, res) {
+    req.session.destroy((err) => {
         if (err) {
             return err.send({
                 success: false,
-                message: "invalid logout"
+                message: "invalid logout",
             });
         }
         return res.status(200).send({
             success: true,
-            message: "logout sucesfull"
+            message: "logout sucesfull",
         });
     });
 });
-router.get('/api/sessionAssigned', (req, res) => {
+router.get("/api/sessionAssigned", (req, res) => {
     if (req.session) {
         if (req.session.form) {
             return res.status(200).send({
                 id: req.session.form,
                 success: true,
-                message: "user Logged In"
+                message: "user Logged In",
             });
         }
     }
     return res.json({
         success: false,
-        message: "user not logged in"
+        message: "user not logged in",
     });
 });
-router.get('/api/getSignedUser/:id', (req, res) => {
+router.get("/api/getSignedUser/:id", (req, res) => {
     Form.findOne({ _id: req.params.id }, function (err, user) {
         if (err) {
-            return ("user not found");
+            return "user not found";
         }
         if (!user) {
             return res.status(404).send("user not found");
