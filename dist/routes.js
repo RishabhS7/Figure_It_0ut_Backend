@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const Form = require("./Form");
 router.get("/", (req, res) => {
-    res.send("Figure it out backend");
+    res.send("Figure it ");
 });
 router.get("/login/name", (req, res) => {
     Form.find({})

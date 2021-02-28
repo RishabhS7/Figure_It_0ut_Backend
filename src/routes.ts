@@ -9,7 +9,7 @@ const Form = require("./Form");
 import session = require("express-session");
 
 router.get("/", (req, res) => {
-  res.send("Figure it out backend");
+  res.send("Figure it ");
 });
 router.get("/login/name", (req: Request, res: Response) => {
   Form.find({})
